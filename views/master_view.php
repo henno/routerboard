@@ -13,6 +13,7 @@
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="<?= ASSETS_URL ?>css/rb_style.min.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="<?= ASSETS_URL ?>css/navbar.css" type="text/css" media="screen, projection">
 	<script src="<?=ASSETS_URL ?>js/vendor/modernizr-2.6.2.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="<?=ASSETS_URL?>js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
@@ -28,46 +29,25 @@
 			<script src="<?=ASSETS_URL?>js/<?=$script?>"></script>
 		<?endforeach?>
 	<?endif?>
-
-	<style>
-		body {
-			padding-top: 90px;
-		}
-		body, html {
-			background: url('<?=BASE_URL?>assets/img/iostexture.png');
-			height: 100%;
-		}
-		table.table-bordered tr {
-			background-color: #f9f9f9;
-		}
-		.navbar-inverse .navbar-inner {
-			background-color: #2b2b2b;
-			!important;
-			background-image: none;
-			!important;
-		}
-		.navbar .nav>.active>a {
-			border: 1px;
-			border-radius: 10px;
-			!important;
-		}
-	</style>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="logo-bar">
+	<a class="brand" href="<?=BASE_URL?>products"><img src="<?=ASSETS_URL?>img/rblogo-header
+	.png"></a>
+</div>
+<div class="navbar navbar-inverse">
 	<div class="navbar-inner">
-		<div class="container">
+		<div style="padding-left: 225px" class="container">
 			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="brand" href="<?=BASE_URL?>products"><img src="<?=ASSETS_URL?>img/rblogo-header.png"></a>
-			<div style="padding-top: 32px" class="nav-collapse collapse">
+			<div class="nav-collapse collapse">
 				<ul class="nav">
-					<li class="active"><a href="<?=BASE_URL?>products">Esimene leht</a></li>
-					<li><a href="#about">Info</a></li>
-					<li><a href="<?=BASE_URL?>auth/logout">Logi välja</a></li>
+					<li class="active" id="menu-icon"><a href="<?=BASE_URL?>products">Products</a></li>
+					<li id="menu-icon"><a href="#about">How to buy</a></li>
+					<li id="menu-icon"><a href="<?=BASE_URL?>auth/logout">About</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
