@@ -41,9 +41,14 @@
 			background-color: #f9f9f9;
 		}
 		.navbar-inverse .navbar-inner {
-			background-color: #2b2b2a;
+			background-color: #2b2b2b;
 			!important;
 			background-image: none;
+			!important;
+		}
+		.navbar .nav>.active>a {
+			border: 1px;
+			border-radius: 10px;
 			!important;
 		}
 	</style>
