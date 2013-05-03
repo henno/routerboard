@@ -266,7 +266,8 @@ jQuery.ui || (function ($) {
 		this._keySliding = false;
 		this._handleIndex = null;
 		this._detectOrientation();
-		this._mouseInit();
+		// TODO! check something
+		// this._mouseInit();
 		this.element.addClass("ui-slider" + " ui-slider-" + this.orientation + " ui-widget" + " ui-widget-content" + " ui-corner-all");
 		this.range = $([]);
 		if (o.range) {

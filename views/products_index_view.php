@@ -110,8 +110,9 @@
 <fieldset style="border:none">
 	<? if (!empty($groups)): foreach ($groups as $group):?>
 	<div class="filter_item"><input name="group_id" id="group_id_<?=$group['group_id']?>" type="radio" value="<?=$group['group_id']?>"
-	                                onclick="setProductGroup('<?=$group['group_id']?>')"
-	                                class="ui-helper-hidden-accessible"><span class="ui-radio"></span><label
+
+	                                class="ui-helper-hidden-accessible"><span onclick="setProductGroup
+			('<?=$group['group_id']?>')" class="ui-radio"></span><label
 			style="display:none;" for="group_id_<?=$group['group_id']?>"><?=$group['group_id']?></label><?=$group['group_name']?>
 	</div>
 	<? endforeach; endif?>
@@ -475,7 +476,7 @@
                                                                           id="pname_<?=$product['product_id']?>"><?=$product['name']?> </a></h3><a
 		class="boxlink" href="<?=BASE_URL?>view/<?=$product['product_id']?>">
 		<div class="productBoxImg" id="pbox_img_<?=$product['product_id']?>"
-		     style="background:url(<?=ASSETS_URL?>'img/'<?=$product['url']?>) no-repeat;
+		     style="background:url(<?=ASSETS_URL?>img/<?=$product['url']?>) no-repeat;
 			     background-position:<?=$product['position']?>px
 			     0px;
 			     "></div>
