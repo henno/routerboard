@@ -40,6 +40,12 @@
 		table.table-bordered tr {
 			background-color: #f9f9f9;
 		}
+		.navbar-inverse .navbar-inner {
+			background-color: #2b2b2a;
+			!important;
+			background-image: none;
+			!important;
+		}
 	</style>
 </head>
 <body>
