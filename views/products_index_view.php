@@ -477,9 +477,7 @@
 		class="boxlink" href="<?=BASE_URL?>view/<?=$product['product_id']?>">
 		<div class="productBoxImg" id="pbox_img_<?=$product['product_id']?>"
 		     style="background:url(<?=ASSETS_URL?>img/<?=$product['url']?>) no-repeat;
-			     background-position:<?=$product['position']?>px
-			     0px;
-			     "></div>
+			     background-position:<?=$product['position']?>px 0px"></div>
 		<div class="product_box_info">
 			<ul>
 				<li><?=$product['info']?>

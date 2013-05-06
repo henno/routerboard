@@ -1,4 +1,5 @@
 function setProductGroup(id) {
+	$('.product_box').hide();
 	$.ajax({
 		method: 'post',
 		url: BASE_URL + 'products/index/',
@@ -19,9 +20,15 @@ function setProductGroup(id) {
 				var price = product['price'];
 				var product_id = product['product_id'];
 				var url = product['url'];
-				$('#product_list').append('<div class="product_box product_title group_class_' + group_id + '">' +
+				$('#product_list').append('<div class="product_box product_title group_class_' + group_id + '" id="box_'+product_id+'">' +
 					'<h3><a href="/routerboard/products/view/' + product_id + '">' +
-					''+name+'</a></h3>' +
+					''+name+'</a></h3><a>' +
+					'<div style="background: url('+BASE_URL+'assets/img/'+url+') no-repeat; background-position: '+position+'px"' +
+					' class="productBoxImg" id="pbox_img_'+product_id+'" >' +
+					'</div>'+
+					'<div class="product_box_info"><ul><li>'+info+'</li></ul></div>'+
+					'<span title="recommended price at distributors" class="price_label">$'+price+'</span></a>'+
+					'<img class="compare_icon" src="'+BASE_URL+'assets/img/balance-plus.png" id="comp_balance_ico_'+product_id+'" onclick="setCompareProduct('+product_id+')" title="Compare">'+
 					'</div>')
 			}
 		showFilters(id);
