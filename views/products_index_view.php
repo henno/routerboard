@@ -465,11 +465,7 @@
 	<a style="clear: both; display: block;" href="http://routerboard.com/compare" onclick="return checkCompare();">Compare
 		selected</a></div>
 </nav>
-<div class="grid_11 omega" id="product_list"><!-- product list here --><h2 id="group_15">Integrated solutions</h2>
-
-<p class="product_group_description" id="description_group_15">These products are provided complete with cases, power adapters and
-	packaged inside individual product boxes. Ready to use and preconfigured with the most basic functionality so you can plug-in
-	and use.</p>
+<div class="grid_11 omega" id="product_list"><!-- product list here -->
 	<? if (!empty($products)): foreach ($products as $product):?>
 <div class="product_box product_title group_class_<?=$product['group_id']?>" id="box_<?=$product['product_id']?>"><h3><a
 			href="<?=BASE_URL?>view/<?=$product['product_id']?>"

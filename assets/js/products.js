@@ -1,12 +1,19 @@
 function setProductGroup(id) {
-	$('.product_box').hide();
+	$('#product_list').html('');
 	$.ajax({
 		method: 'post',
 		url: BASE_URL + 'products/index/',
 		data: {id: id},
 		complete: function (data) {
+			console.log(data);
 			var products=eval(data.responseText);
 			console.log(products);
+			var group_name = products[0];
+			var group_name = group_name['group_name'];
+			var group_description = products[0];
+			var group_description = group_description['group_description'];
+			$('#product_list').show().append('<h2 id="group_' + id + '">' + group_name + '</h2>'+
+			'<p class="product_group_description" id="description_group_' + id + '">' + group_description + '</p>');
 			for (var key in products){
 				var product = products[key];
 				var code = product['code'];
@@ -20,7 +27,10 @@ function setProductGroup(id) {
 				var price = product['price'];
 				var product_id = product['product_id'];
 				var url = product['url'];
-				$('#product_list').append('<div class="product_box product_title group_class_' + group_id + '" id="box_'+product_id+'">' +
+				if (price===null){
+					price = 'hind puudub'
+				}
+				$('#product_list').append('<div class="product_box product_title group_class_' + group_id + '" id="box_' + product_id + '">' +
 					'<h3><a href="/routerboard/products/view/' + product_id + '">' +
 					''+name+'</a></h3><a>' +
 					'<div style="background: url('+BASE_URL+'assets/img/'+url+') no-repeat; background-position: '+position+'px"' +

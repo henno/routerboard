@@ -895,7 +895,7 @@ function getCookie(name) {
  var image_tag='<img title=\"'+compare_details[1]+'\" src=\"'+compare_details[2]+'_s.png\">\n';var delete_ico_tag='<a href=\"#\" id=\"delete_compare\" onclick=\"deleteCompareCookie(\''+compared[i]+'\')\"><img id=\"delete_compare_img\" src=\"/img/icons/cross-small.png\"></a>\n';document.getElementById('compare_img'+image_index).innerHTML=image_tag+delete_ico_tag;image_index+=1;}}}}}
  */
 var ico_norm = 'http://img.routerboard.com/ico/balance-plus.png';
-var ico_gray = BASE_URL+'assets/img/balance-plus-gray.png';
+var ico_gray = BASE_URL + 'assets/img/balance-plus-gray.png';
 var ico_del = 'http://img.routerboard.com/ico/cross-small.png';
 function getElementsByClassName(classname, node) {
 	if (!node) {
