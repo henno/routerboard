@@ -41,6 +41,7 @@ class products {
 		}
 		$more_info = get_all("SELECT * FROM product_more_info WHERE product_id='$id'");
 		$more_info = $more_info[0];
+		$more_info = array_filter($more_info);
 		require 'views/master_view.php';
 	}
 }

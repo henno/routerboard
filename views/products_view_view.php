@@ -24,9 +24,24 @@
 
 				<div class="filesbox" style="z-index:99;"><strong>More info:</strong>
 					<ul>
-						<li>Brochure : <a
-								href="<?= ASSETS_URL ?>pdf/<?= $more_info['routerboot'] ?>"><?=$more_info['routerboot']?></a></li>
-						<li>High-res image : <a href="<?= ASSETS_URL ?>img/<?= $more_info['high_res_image'] ?>">[1]</a></li>
+						<?
+						foreach ($more_info as $key=>$value){
+								unset($more_info[$key]);
+							$more_info[ucfirst($key)] = $value;
+							}
+							unset($more_info['Slideshow_pic_s']);
+							unset($more_info['Slideshow_pic_m']);
+							unset($more_info['Slideshow_pic_l']);
+							if (isset($more_info)) : foreach (array_slice($more_info, 1) as $key=>$value) :
+								$more_info = str_replace('_', ' ', $key);
+						        if ($more_info == 'High res image') {?>
+									<li><?=$more_info?>: <a href="<?=ASSETS_URL?>img/<?=$value?>">[1]</a></li>
+								<? } elseif ($more_info == 'Routerboot') { ?>
+									<li><?=$more_info?>: <a href="<?=ASSETS_URL?>pdf/<?=$value?>"><?=$value?></a></li>
+								<? } else { ?>
+									<li><?=$more_info?>: <?=$value?></li>
+								<? } ?>
+						<? endforeach; endif ?>
 						<li>Purchase questions: <a
 								href="mailto:sales@mikrotik.com?subject=Question%20about%20<?= $products['name'] ?>">email
 								sales</a>

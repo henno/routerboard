@@ -43,7 +43,7 @@
 			</button>
 			<div class="nav-collapse collapse">
 				<ul class="nav">
-					<li class="active" id="menu-icon"><a href="<?=BASE_URL?>products">Products</a></li>
+					<li id="menu-icon" class="active"><a href="<?=BASE_URL?>products">Products</a></li>
 					<li id="menu-icon"><a href="#about">How to buy</a></li>
 					<li id="menu-icon"><a href="<?=BASE_URL?>auth/logout">About</a></li>
 				</ul>
