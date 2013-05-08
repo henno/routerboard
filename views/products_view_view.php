@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="<?= ASSETS_URL ?>css/printProduct.css" type="text/css" media="print"/>
 <link rel="stylesheet" href="<?= ASSETS_URL ?>css/products_view.css" type="text/css"/>
-
+<script src="<?= ASSETS_URL ?>js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+<meta name="description" content="<?=$products['description']?>">
 <div class="wrap-spot"></div>
 <div class="wrap-body">
 	<div class="proddescription container_16">
@@ -12,12 +13,10 @@
 						<li style="display: none;"><img src="<?=ASSETS_URL?>img/<?=$more_info['slideshow_pic_m']?>" alt=""></li>
 					</ul>
 					<div class="blinds_container" onclick=""
-					     style="position: relative; display: block; width: 200px; height: 200px; background-image: url(<?=ASSETS_URL?>img/<?=$more_info['slideshow_pic_m']?>); background-color: transparent; background-position: 0px 0px; background-repeat: no-repeat no-repeat;">
-						<div class="outer_tile_0_0"
-						     style="position: absolute; width: 16.666666666666668px; height: 200px; left: 0px; top: 0px;">
-							<div class="tile_0_0"
-							     style="position: absolute; width: 16.666666666666668px; height: 200px; left: 0px; top: 0px; background-image: url(<?=ASSETS_URL?>img/<?=$more_info['slideshow_pic_m']?>); background-color: transparent; display: block; background-position: 0px 0px; background-repeat: no-repeat no-repeat;"></div>
-						</div>
+					     style="position: relative; display: block; width: 200px; height: 200px; background-image: url(<?=ASSETS_URL?>img/<?=$more_info['slideshow_pic_m']?>); background-color: transparent; background-position: 0px 0px; background-repeat: no-repeat;">
+					</div>
+					<div id="popup" style="display: none">
+						<a rel="prettyPhoto" href="<?=ASSETS_URL?>img/<?=$more_info['slideshow_pic_l']?>"></a>
 					</div>
 				</div>
 				<div id="imgthumbs"></div>
