@@ -1,19 +1,29 @@
 <?php
 
-class products {
-	function index(){
+class products
+{
+
+	function index()
+	{
 		global $request;
-		$this->scripts[]='products.js';
-		if (isset($_POST['id'])){
+		$this->scripts[] = 'products.js';
+		if ($_GET['status'] == 'ok') {
+			$bill_id = $_GET['makse_id'];
+			//märgi andmebaasis see arve makstuks mille ID on $_POST['makse_ID']
+			q("UPDATE bill SET paid = 1 WHERE bill_id='$bill_id'");
+		}
+		if (isset($_POST['id'])) {
 			$group_id = $_POST['id'];
-			if ($group_id==0){
+			if ($group_id == 0) {
 				$products = get_all("SELECT * FROM product NATURAL JOIN `group` NATURAL JOIN image WHERE deleted=0");
-				$products = json_encode($products, true);
+				$products = json_encode($products, TRUE);
 				ob_end_clean();
 				exit($products);
 			} else {
-				$products = get_all("SELECT * FROM product NATURAL JOIN `group` NATURAL JOIN image WHERE group_id='$group_id' AND deleted=0");
-				$products = json_encode($products, true);
+				$products = get_all(
+					"SELECT * FROM product NATURAL JOIN `group` NATURAL JOIN image WHERE group_id='$group_id' AND deleted=0"
+				);
+				$products = json_encode($products, TRUE);
 				ob_end_clean();
 				exit($products);
 			}
@@ -21,13 +31,15 @@ class products {
 		$groups = get_all("SELECT * FROM `group`");
 
 		// Lisa All groups loetellu
-		array_unshift($groups, array('group_id'=>0, 'group_name'=>"All"));
+		array_unshift($groups, array('group_id' => 0, 'group_name' => "All"));
 		$products = get_all("SELECT * FROM product NATURAL JOIN `group` NATURAL JOIN image WHERE deleted=0");
 		require 'views/master_view.php';
 	}
-	function view(){
+
+	function view()
+	{
 		global $request;
-		$this->scripts[]='products_view.js';
+		$this->scripts[] = 'products_view.js';
 		$id = $request->params[0];
 		$products = get_all("SELECT * FROM product WHERE product_id='$id'");
 		$products = $products[0];
@@ -35,7 +47,7 @@ class products {
 		$products_spec = $products_spec[0];
 		$products_spec = array_filter($products_spec);
 		//$products_spec = array_change_key_case($products_spec, MB_CASE_UPPER);
-		foreach ($products_spec as $key=>$value){
+		foreach ($products_spec as $key => $value) {
 			unset($products_spec[$key]);
 			$products_spec[ucfirst($key)] = $value;
 		}
@@ -43,5 +55,26 @@ class products {
 		$more_info = $more_info[0];
 		$more_info = array_filter($more_info);
 		require 'views/master_view.php';
+	}
+
+	function buy()
+	{
+		global $request;
+		// meil on olemas $request->params[0] mis on toote ID, nüüd tuleks andmebaasist välja võtta andmed, et saada name ja price
+		$id = $request->params[0];
+		$products = get_all("SELECT * FROM product WHERE product_id = '$id'");
+		$products = $products[0];
+		//nüüd on olemas toote andmed, loome uue arve andmebaasis (saame $bill_id, mis on mysql_insert_id
+		//mille funktsioon q()annab meile )
+		$date = date("Y-m-d");
+		$due_date = date('Y-m-d', strtotime("+ 10 days"));
+		$price = $products['price'];
+		$bill_id = q("INSERT INTO bill SET product_id = '$id', total = '$price', `date` = '$date', due_date = '$due_date'");
+
+		$product_price = $products['price']; //antud ID'le vastava toote hind
+		$product_name = $products['name']; //antud ID'le vastava toote nimi
+		//"poenimi ja "poearvelduskonto" tuleb lisada hard code'na
+		$destination = "http://localhost/pank/index.php/pangalink/maksa/karmen.kukk@khk.ee/1145615682/$product_price/$bill_id/$product_name/localhost/routerboard";
+		header("Location: $destination");
 	}
 }

@@ -12,9 +12,6 @@
 					<ul>
 						<li style="display: none;"><img src="<?=ASSETS_URL?>img/<?=$more_info['slideshow_pic_m']?>" alt=""></li>
 					</ul>
-					<div class="blinds_container" onclick=""
-					     style="position: relative; display: block; width: 200px; height: 200px; background-image: url(<?=ASSETS_URL?>img/<?=$more_info['slideshow_pic_m']?>); background-color: transparent; background-position: 0px 0px; background-repeat: no-repeat;">
-					</div>
 					<div id="popup" style="display: none">
 						<a rel="prettyPhoto" href="<?=ASSETS_URL?>img/<?=$more_info['slideshow_pic_l']?>"></a>
 					</div>
@@ -49,6 +46,8 @@
 						<li><a href="http://wiki.mikrotik.com/wiki/Manual:TOC">RouterOS software manual</a></li>
 					</ul>
 				</div>
+				<a href="<?=BASE_URL?>products/buy/<?=$products['product_id']?>" class="btn btn-primary btn-large"
+				   style="margin: 20px; width: 80px">Purchase</a>
 				<br/></div>
 			<div class="grid_11 omega"><h1><?=$products['name']?></h1>
 
