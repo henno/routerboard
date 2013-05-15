@@ -7,7 +7,7 @@ class products
 	{
 		global $request;
 		$this->scripts[] = 'products.js';
-		if ($_GET['status'] == 'ok') {
+		if (isset($_GET['status']) && $_GET['status'] == 'ok') {
 			$bill_id = $_GET['makse_id'];
 			//märgi andmebaasis see arve makstuks mille ID on $_POST['makse_ID']
 			q("UPDATE bill SET paid = 1 WHERE bill_id='$bill_id'");
@@ -44,16 +44,20 @@ class products
 		$products = get_all("SELECT * FROM product WHERE product_id='$id'");
 		$products = $products[0];
 		$products_spec = get_all("SELECT * FROM product_spec WHERE product_id='$id'");
-		$products_spec = $products_spec[0];
-		$products_spec = array_filter($products_spec);
+		if (! empty($product_spec)) {
+			$products_spec = $products_spec[0];
+			$products_spec = array_filter($products_spec);
+		}
 		//$products_spec = array_change_key_case($products_spec, MB_CASE_UPPER);
 		foreach ($products_spec as $key => $value) {
 			unset($products_spec[$key]);
 			$products_spec[ucfirst($key)] = $value;
 		}
 		$more_info = get_all("SELECT * FROM product_more_info WHERE product_id='$id'");
-		$more_info = $more_info[0];
-		$more_info = array_filter($more_info);
+		if (! empty($more_info)) {
+			$more_info = $more_info[0];
+			$more_info = array_filter($more_info);
+		}
 		require 'views/master_view.php';
 	}
 
@@ -70,11 +74,13 @@ class products
 		$due_date = date('Y-m-d', strtotime("+ 10 days"));
 		$price = $products['price'];
 		$bill_id = q("INSERT INTO bill SET product_id = '$id', total = '$price', `date` = '$date', due_date = '$due_date'");
-
+		$e_bill_id = base64_encode($bill_id);
 		$product_price = $products['price']; //antud ID'le vastava toote hind
+		$e_product_price = base64_encode($product_price);
 		$product_name = $products['name']; //antud ID'le vastava toote nimi
+		$e_product_name = base64_encode($product_name);
 		//"poenimi ja "poearvelduskonto" tuleb lisada hard code'na
-		$destination = "http://localhost/pank/index.php/pangalink/maksa/karmen.kukk@khk.ee/1145615682/$product_price/$bill_id/$product_name/localhost/routerboard";
+		$destination = "http://localhost/pank/index.php/pangalink/maksa/karmen.kukk@khk.ee/1145615682/$e_product_price/$e_bill_id/$e_product_name/localhost/routerboard";
 		header("Location: $destination");
 	}
 }
