@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 07, 2013 at 01:28 PM
+-- Generation Time: May 15, 2013 at 08:06 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -20,6 +20,33 @@ SET time_zone = "+00:00";
 --
 -- Database: `routerboard`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bill`
+--
+
+DROP TABLE IF EXISTS `bill`;
+CREATE TABLE IF NOT EXISTS `bill` (
+  `bill_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `product_id` int(10) unsigned NOT NULL,
+  `total` decimal(10,2) NOT NULL,
+  `date` date NOT NULL,
+  `due_date` date NOT NULL,
+  `paid` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`bill_id`),
+  KEY `user_id` (`user_id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=523 ;
+
+--
+-- Dumping data for table `bill`
+--
+
+INSERT INTO `bill` (`bill_id`, `user_id`, `product_id`, `total`, `date`, `due_date`, `paid`) VALUES
+(522, 0, 1, '110.00', '2013-05-15', '2013-05-25', 1);
 
 -- --------------------------------------------------------
 
@@ -96,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `deleted` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`product_id`),
   KEY `group_id` (`group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `product`
@@ -109,7 +136,9 @@ INSERT INTO `product` (`product_id`, `code`, `name`, `description`, `price`, `gr
 (4, 'CA411-711', 'CA411-711', 'CA411-711 is new indoor case for RB411 and RB711 series. It has changeable front panels, so you can choose one that fits the product that you actually use. Also, case is higher to accommodate high-power wireless cards and has wall mounting holes on the back.', '15.00', 3, 'fits RB411 and RB711/higher profile', 0),
 (5, 'S-31DLC20D', 'S-31DLC20D', 'S-31DLC20D is a 1.25G SFP transceiver with a 1310nm Dual LC connector, for up to 20 kilometer Single Mode fiber connections, with DDM \r\n\r\nUnits are tested and compatible with RB260GS,RB2011LS, RB2011LS-IN, RB2011UAS-IN, RB2011UAS-RM, RB2011UAS-2HnD, RB2011UAS-2HnD-IN, and CCR1036-12G-4S. Units are compatible with non-MikroTik SFP devices as well.', '29.00', 4, '20KM, Single Mode', 0),
 (6, '12POW', '12POW', '12V 0.5A Power Supply \r\n\r\nFits RB750', '9.00', 5, '12V 0.5A', 0),
-(7, 'IAMP4', 'RB14', 'RouterBOARD 14 miniPCI to PCI Adapter for using four miniPCI cards inside regular PC with PCI slots. Doesn''t require any drivers.', NULL, 6, 'miniPCI to PCI', 0);
+(7, 'IAMP4', 'RB14', 'RouterBOARD 14 miniPCI to PCI Adapter for using four miniPCI cards inside regular PC with PCI slots. Doesn''t require any drivers.', NULL, 6, 'miniPCI to PCI', 1),
+(12, '', 'dca', '', NULL, 1, '', 0),
+(13, '', 'dcd', '', NULL, 1, '', 0);
 
 -- --------------------------------------------------------
 
@@ -120,19 +149,20 @@ INSERT INTO `product` (`product_id`, `code`, `name`, `description`, `price`, `gr
 DROP TABLE IF EXISTS `product_more_info`;
 CREATE TABLE IF NOT EXISTS `product_more_info` (
   `product_id` int(10) unsigned NOT NULL,
+  `routerboot` varchar(25) DEFAULT NULL,
+  `brochure` varchar(25) DEFAULT NULL,
+  `design_files_pdf` varchar(25) DEFAULT NULL,
+  `dimensions` varchar(25) DEFAULT NULL,
+  `quick_guide` varchar(25) DEFAULT NULL,
+  `high_res_image` varchar(25) DEFAULT NULL,
+  `user_guide` varchar(25) DEFAULT NULL,
+  `rb400l_differences` varchar(25) DEFAULT NULL,
+  `design_files_dxf-pdf` varchar(25) DEFAULT NULL,
+  `design_files_dxf` varchar(25) DEFAULT NULL,
+  `antenna_pattern` varchar(25) DEFAULT NULL,
   `slideshow_pic_s` varchar(25) DEFAULT NULL,
-  `slideshow_pic_m` varchar(25) NOT NULL,
-  `slideshow_pic_l` varchar(25) NOT NULL,
-  `routerboot` varchar(25) NOT NULL,
-  `brochure` varchar(25) NOT NULL,
-  `design_files_pdf` varchar(25) NOT NULL,
-  `dimensions` varchar(25) NOT NULL,
-  `quick_guide` varchar(25) NOT NULL,
-  `high_res_image` varchar(25) NOT NULL,
-  `user_guide` varchar(25) NOT NULL,
-  `rb400l_differences` varchar(25) NOT NULL,
-  `design_files_dxf-pdf` varchar(25) NOT NULL,
-  `design_files_dxf` varchar(25) NOT NULL,
+  `slideshow_pic_m` varchar(25) DEFAULT NULL,
+  `slideshow_pic_l` varchar(25) DEFAULT NULL,
   KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -140,8 +170,8 @@ CREATE TABLE IF NOT EXISTS `product_more_info` (
 -- Dumping data for table `product_more_info`
 --
 
-INSERT INTO `product_more_info` (`product_id`, `slideshow_pic_s`, `slideshow_pic_m`, `slideshow_pic_l`, `routerboot`, `brochure`, `design_files_pdf`, `dimensions`, `quick_guide`, `high_res_image`, `user_guide`, `rb400l_differences`, `design_files_dxf-pdf`, `design_files_dxf`) VALUES
-(1, '', '313_m.png', '313_l.png', 'SextantG-5HPnD.pdf', '', '', '', '', 'SEXTANTG5HPnD_hi_res.png', '', '', '', '');
+INSERT INTO `product_more_info` (`product_id`, `routerboot`, `brochure`, `design_files_pdf`, `dimensions`, `quick_guide`, `high_res_image`, `user_guide`, `rb400l_differences`, `design_files_dxf-pdf`, `design_files_dxf`, `antenna_pattern`, `slideshow_pic_s`, `slideshow_pic_m`, `slideshow_pic_l`) VALUES
+(1, 'SextantG-5HPnD.pdf', '', '', '', '', 'SEXTANTG5HPnD_hi_res.png', '', '', '', '', NULL, '', '313_m.png', '313_l.png');
 
 -- --------------------------------------------------------
 
@@ -221,11 +251,24 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   `deleted` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `password`, `deleted`) VALUES
+(1, 'karmen', 'karmen', 0);
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `bill`
+--
+ALTER TABLE `bill`
+  ADD CONSTRAINT `bill_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
 
 --
 -- Constraints for table `image`
