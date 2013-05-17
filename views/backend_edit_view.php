@@ -1,9 +1,12 @@
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css"/>
 <script>
-	$(function() {
-		$( "#tabs" ).tabs();
+	$(function () {
+		$("#tabs").tabs();
 	});
 </script>
+<form method="post" id="product_info">
+<center><button style="margin: auto; margin-top: 30px" class="btn btn-primary btn-large" type="button" onclick="submit()">Save</button></center>
+<input type="hidden" id="product_id" value="<?=$product_id?>">
 <div style="width: 50%; margin: auto; margin-top: 30px" id="tabs">
 <ul>
 	<li><a href="#tabs-1">Product info</a></li>
@@ -227,18 +230,31 @@
 
 </div>
 <div style="margin: 20px" id="tabs-2">
-	<select id="product_spec_select">
+	<select id="product_spec_select" onchange="verify_specification()">
+		<option disabled="disabled" selected="selected">Select specification...</option>
 		<? if (isset($products_spec)) : foreach (array_slice($products_spec, 1) as $key => $product_spec) : ?>
 			<? $products_spec[$key] = str_replace('_', ' ', $key) ?>
-			<option id="<?=$products_spec[$key]?>"><?=$products_spec[$key]?></option>
+			<option id="<?= $products_spec[$key] ?>"><?=$products_spec[$key]?></option>
 		<? endforeach; endif ?>
 	</select>
 	<table id="product_spec" class="table table-bordered table-striped" style="width:0">
+		<tbody>
 		<? if (isset($specs)) : foreach (array_slice($specs, 1) as $key => $spec) : ?>
-		<? $specs[$key] = str_replace('_', ' ', $key) ?>
-		<tr id="<?=$specs[$key]?>"><th><?=$specs[$key]?></th>
-		<td><input type="text" value="<?=$spec?>"></td></tr>
+			<tr id="product_<?= $key ?>">
+			<? $specs[$key] = str_replace('_', ' ', $key) ?>
+				<th><?=$specs[$key]?></th>
+				<td><input type="text" value="<?= $spec ?>"></td>
+				<td>
+					<a href="#"
+					   onclick="if (!confirm('Are you sure?')) return false;
+						   remove_specification_ajax('<?= $key ?>', '<?= $specs['Product_id'] ?>');return false
+						   "><i class="icon-trash"></i>Remove</a>
+				</td>
+			</tr>
 		<? endforeach; endif ?>
+		</tbody>
 	</table>
 </div>
 </div>
+<input id="product_spec" type="hidden" value="">
+</form>
